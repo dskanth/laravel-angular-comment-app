@@ -9,8 +9,11 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 	<style>
 		body 		{ padding-top:30px; }
-		form 		{ padding-bottom:20px; }
-		.comment 	{ padding-bottom:20px; }
+		form 		{ padding-bottom:20px; width: 400px; }
+		pre 		{ width: 400px; }
+		.page-header { width: 400px; }
+		.comment 	{ padding-bottom:20px; margin-left:100px; }
+		.text-center { margin-left: 50px; }
 	</style>
 
 	<!-- JS -->
@@ -22,12 +25,14 @@
 		<script src="js/controllers/mainCtrl.js"></script> <!-- load our controller -->
 		<script src="js/services/commentService.js"></script> <!-- load our service -->
 		<script src="js/app.js"></script> <!-- load our application -->
+		<script src="js/validate.js"></script> <!-- load our validation routine -->
 
 </head>
 <!-- declare our angular app and controller -->
 <body class="container" ng-app="commentApp" ng-controller="mainController">
 <div class="col-md-8 col-md-offset-2">
-
+	<table>
+	<tr><td>
 	<!-- PAGE TITLE -->
 	<div class="page-header">
 		<h2>Laravel and Angular Single Page Application</h2>
@@ -39,28 +44,29 @@
 
 		<!-- AUTHOR -->
 		<div class="form-group">
-			<input type="text" class="form-control input-sm" name="author" ng-model="commentData.author" placeholder="Name">
+			<input type="text" class="form-control input-sm" name="author" id="author" ng-model="commentData.author" placeholder="Name">
 		</div>
 
 		<!-- COMMENT TEXT -->
 		<div class="form-group">
-			<input type="text" class="form-control input-lg" name="comment" ng-model="commentData.text" placeholder="Say what you have to say">
+			<input type="text" class="form-control input-lg" name="comment" id="text" ng-model="commentData.text" placeholder="Say what you have to say">
 		</div>
 		
 		<!-- SUBMIT BUTTON -->
 		<div class="form-group text-right">	
-			<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+			<button type="submit" class="btn btn-primary btn-lg" onClick="return validate_add_comment()">Submit</button>
 		</div>
 	</form>
 
 	<pre>
 	{{ commentData }}
 	</pre>
-
+	</td>
+	<td>
 	<!-- LOADING ICON -->
 	<!-- show loading icon if the loading variable is set to true -->
 	<p class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></p>
-
+	
 	<!-- THE COMMENTS -->
 	<!-- hide these comments if the loading variable is true -->
 	<div class="comment" ng-hide="loading" ng-repeat="comment in comments">
@@ -69,7 +75,7 @@
 
 		<p><a href="#" ng-click="deleteComment(comment.id)" class="text-muted">Delete</a></p>
 	</div>
-
+	</td></tr></table>
 </div>
 </body>
 </html>
