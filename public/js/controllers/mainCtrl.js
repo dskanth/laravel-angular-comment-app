@@ -38,8 +38,10 @@ angular.module('mainCtrl', [])
 
 		// function to handle deleting a comment
 		$scope.deleteComment = function(id) {
-			$scope.loading = true; 
-
+			if(confirm('Do you really want to delete this comment ?')) {
+				
+			$scope.loading = true;
+			
 			Comment.destroy(id)
 				.success(function(data) {
 
@@ -51,6 +53,7 @@ angular.module('mainCtrl', [])
 						});
 
 				});
+			}
 		};
 
 	});
